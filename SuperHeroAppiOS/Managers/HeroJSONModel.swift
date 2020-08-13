@@ -9,8 +9,12 @@
 import Foundation
 
 struct Hero: Codable {
-    let id: String
-    let name: String
-    let powerstats: [String]
-    let imageUrl: String
+    //var id: String
+    var name: String
+    //var powerstats: PowerStats
+    //var image: Image
+}
+
+struct Image: Codable {
+    var url: String
 }

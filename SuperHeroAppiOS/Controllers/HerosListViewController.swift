@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HerosViewController: UIViewController {
+class HerosListViewController: UIViewController {
 
     @IBOutlet weak var heroSearchBar: UISearchBar!
     @IBOutlet weak var cvHeros: UICollectionView!
@@ -16,14 +16,13 @@ class HerosViewController: UIViewController {
     let collectionCellIdentifier = "HeroCollectionCell"
     let tableCellIdentifier = "HeroTableCell"
     let network = NetworkManager()
-    var nombres: [String] = []
+    var names: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        nombres = network.getData()
+        names = network.getData()
         
-        Reload()
     }
     
     func setupView(){
@@ -39,6 +38,9 @@ class HerosViewController: UIViewController {
         self.tvHeros.reloadData()
     }
     
+    @IBAction func btnReload(_ sender: Any) {
+        Reload()
+    }
     
 }
 
@@ -56,15 +58,15 @@ extension HerosListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(nombres.count)
-        return nombres.count
+        print(names.count)
+        return names.count
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableCellIdentifier, for: indexPath) as! HerosTableViewCell
-        cell.lblHeroName.text = nombres[indexPath.row]
-        print(nombres[indexPath.row])
+        cell.lblHeroName.text = names[indexPath.row]
+        print(names[indexPath.row])
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

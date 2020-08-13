@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+struct PowerStats: Codable {
+    var intelligence: String
+    var strength: String
+    var speed: String
+    var durability: String
+    var power: String
+    var combat: String
+}
+
