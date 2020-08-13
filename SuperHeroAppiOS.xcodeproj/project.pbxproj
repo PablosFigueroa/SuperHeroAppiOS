@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81196EF824E5DDDF005DE81E /* HerosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81196EF724E5DDDF005DE81E /* HerosViewModel.swift */; };
 		FFD4E5A524E4BA4500A194F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD4E5A424E4BA4500A194F4 /* AppDelegate.swift */; };
 		FFD4E5A724E4BA4500A194F4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD4E5A624E4BA4500A194F4 /* SceneDelegate.swift */; };
 		FFD4E5AC24E4BA4500A194F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFD4E5AA24E4BA4500A194F4 /* Main.storyboard */; };
@@ -18,7 +19,7 @@
 		FFD4E5CD24E4C46D00A194F4 /* HerosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD4E5CB24E4C46D00A194F4 /* HerosCollectionViewCell.swift */; };
 		FFD4E5D024E4DEEB00A194F4 /* HerosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD4E5CF24E4DEEB00A194F4 /* HerosTableViewCell.swift */; };
 		FFD4E5D624E4E70500A194F4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD4E5D524E4E70500A194F4 /* NetworkManager.swift */; };
-		FFD4E5D824E4E75900A194F4 /* HeroJSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD4E5D724E4E75900A194F4 /* HeroJSONModel.swift */; };
+		FFD4E5D824E4E75900A194F4 /* HeroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD4E5D724E4E75900A194F4 /* HeroModel.swift */; };
 		FFD4E5DA24E4F61900A194F4 /* HeroDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD4E5D924E4F61900A194F4 /* HeroDetailViewController.swift */; };
 		FFD4E5DC24E4FD3C00A194F4 /* PowerStatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD4E5DB24E4FD3C00A194F4 /* PowerStatsModel.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		81196EF724E5DDDF005DE81E /* HerosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HerosViewModel.swift; sourceTree = "<group>"; };
 		FFD4E5A124E4BA4500A194F4 /* SuperHeroAppiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperHeroAppiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFD4E5A424E4BA4500A194F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFD4E5A624E4BA4500A194F4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,7 +51,7 @@
 		FFD4E5CB24E4C46D00A194F4 /* HerosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HerosCollectionViewCell.swift; sourceTree = "<group>"; };
 		FFD4E5CF24E4DEEB00A194F4 /* HerosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HerosTableViewCell.swift; sourceTree = "<group>"; };
 		FFD4E5D524E4E70500A194F4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		FFD4E5D724E4E75900A194F4 /* HeroJSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroJSONModel.swift; sourceTree = "<group>"; };
+		FFD4E5D724E4E75900A194F4 /* HeroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroModel.swift; sourceTree = "<group>"; };
 		FFD4E5D924E4F61900A194F4 /* HeroDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewController.swift; sourceTree = "<group>"; };
 		FFD4E5DB24E4FD3C00A194F4 /* PowerStatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerStatsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +122,7 @@
 			children = (
 				FFD4E5AA24E4BA4500A194F4 /* Main.storyboard */,
 				FFD4E5B224E4BA4600A194F4 /* LaunchScreen.storyboard */,
+				81196EF724E5DDDF005DE81E /* HerosViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -146,7 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				FFD4E5D524E4E70500A194F4 /* NetworkManager.swift */,
-				FFD4E5D724E4E75900A194F4 /* HeroJSONModel.swift */,
+				FFD4E5D724E4E75900A194F4 /* HeroModel.swift */,
 				FFD4E5DB24E4FD3C00A194F4 /* PowerStatsModel.swift */,
 			);
 			path = Managers;
@@ -259,10 +262,11 @@
 				FFD4E5A524E4BA4500A194F4 /* AppDelegate.swift in Sources */,
 				FFD4E5A724E4BA4500A194F4 /* SceneDelegate.swift in Sources */,
 				FFD4E5CD24E4C46D00A194F4 /* HerosCollectionViewCell.swift in Sources */,
+				81196EF824E5DDDF005DE81E /* HerosViewModel.swift in Sources */,
 				FFD4E5D024E4DEEB00A194F4 /* HerosTableViewCell.swift in Sources */,
 				FFD4E5DA24E4F61900A194F4 /* HeroDetailViewController.swift in Sources */,
 				FFD4E5D624E4E70500A194F4 /* NetworkManager.swift in Sources */,
-				FFD4E5D824E4E75900A194F4 /* HeroJSONModel.swift in Sources */,
+				FFD4E5D824E4E75900A194F4 /* HeroModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

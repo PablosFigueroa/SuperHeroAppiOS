@@ -7,62 +7,59 @@
 //
 
 import Foundation
+import UIKit
 
 class NetworkManager {
     
     static let shared = NetworkManager()
+    private var dataTask: URLSessionDataTask?
     let userToken = "10156112965520834/"
     let baseURL = "https://superheroapi.com/api.php/"
+    private var heroArray = [Hero]()
+    private var loading = true
     
-    
-    func getData() -> [String] {
-        let urls = [baseURL + userToken + String(1),
-                    baseURL + userToken + String(2),
-                    baseURL + userToken + String(3),
-                    baseURL + userToken + String(4),
-                    baseURL + userToken + String(5),
-                    baseURL + userToken + String(6),
-                    baseURL + userToken + String(7),
-                    baseURL + userToken + String(8),
-                    baseURL + userToken + String(9),
-                    baseURL + userToken + String(10),
-        ]
+    func getHeros(id: Int, completion: @escaping (Result<Hero, Error>) -> Void){
         
-        let group = DispatchGroup()
-        var heros: [String] = []
-        
-        for url in urls {
-            guard let url = URL(string: url) else{
-                continue
-            }
-            print(url)
-            group.enter()
-            let session = URLSession.shared
-            let task = session.dataTask(with: url, completionHandler:  {data, response, error in
-                
-                defer {
-                    group.leave()
-                }
-                
-                let decoder = JSONDecoder()
-                do {
-                    let hero = try decoder.decode(Hero.self, from: data!)
-                    heros.append(hero.name)
-                    print(heros)
-                }
-                catch {
-                    print("ERROR IN JSON")
-                }
-            })
-            task.resume()
+        guard let url = URL(string: baseURL + userToken + String(id)) else {
+            fatalError("URL guard FAILED")
         }
-        group.notify(queue: .main, execute: {
-            print("Done with jsons")
-             
-        })
-        return heros
+        print(url)
+        // Create URL Session - work on the background
+        dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            // Handle Error
+            if let error = error {
+                completion(.failure(error))
+                print("DataTask error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse else {
+                // Handle Empty Response
+                print("Empty Response")
+                return
+            }
+            print("Response status code: \(response.statusCode)")
+            
+            guard let data = data else {
+                // Handle Empty Data
+                print("Empty Data")
+                return
+            }
+            do {
+                // Parse the data
+                let decoder = JSONDecoder()
+                let jsonData = try decoder.decode(Hero.self, from: data)
+                
+                // Back to the main thread
+                DispatchQueue.main.async {
+                    completion(.success(jsonData))
+                }
+            } catch let error {
+                completion(.failure(error))
+            }
+        }
+        dataTask?.resume()
     }
-    
-    
     
 }

@@ -8,11 +8,15 @@
 
 import Foundation
 
+struct HerosData: Codable {
+    var heros: [Hero]
+}
+
 struct Hero: Codable {
-    //var id: String
+    var id: String
     var name: String
-    //var powerstats: PowerStats
-    //var image: Image
+    var powerstats: PowerStats
+    var image: Image
 }
 
 struct Image: Codable {
