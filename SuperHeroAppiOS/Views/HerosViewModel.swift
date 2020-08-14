@@ -12,27 +12,34 @@ class HerosViewModel {
     
     private var apiService = NetworkManager()
     var herosList: [Hero] = []
-    private let group = DispatchGroup()
+    
     
     func fetchHerosListData(total: Int, completion: @escaping () -> ()) {
         
-        for i in stride(from: (total - 10), to: total, by: 1){
-            self.group.enter()
+            for i in stride(from: (total - 10), to: total, by: 1){
                 self.apiService.getHeros(id: i) { [weak self] (result) in
                 switch result {
                 case .success(let hero):
                     completion()
                     self?.herosList.append(hero)
-                    self?.herosList.sort{
-                        $0.name < $1.name
-                    }
-                    self?.group.leave()
                 case .failure(let error):
                     print("Error processing json data: \(error)")
-                    self?.group.leave()
                 }
             }
         }
+        
+    }
+    
+    func numberOfRowsInCollection(section: Int) -> Int {
+        if herosList.count != 0 {
+            return herosList.count
+        }
+        return 0
+    }
+    
+    func cellForRowAtCollection (indexPath: IndexPath) -> Hero {
+        
+        return herosList[indexPath.row]
     }
     
     func numberOfRowsInSection(section: Int) -> Int {

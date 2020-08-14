@@ -20,13 +20,11 @@ class HerosListViewController: UIViewController {
     var heroToDetail: Hero? = nil
     var loadMoreHeroes = false
     private var viewModel = HerosViewModel()
-    var names: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         loadHerosData()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -42,25 +40,25 @@ class HerosListViewController: UIViewController {
     }
     
     private func loadHerosData() {
-        
+        UILoading()
         viewModel.fetchHerosListData(total: heroesTotal) { [weak self] in
             self?.tvHeros.dataSource = self
             self?.cvHeros.dataSource = self
             self?.tvHeros.reloadData()
             self?.cvHeros.reloadData()
-            
+            self?.dismiss(animated: false, completion: { self?.loadMoreHeroes = true})
         }
         heroesTotal += 10
     }
     
-    private func loadMoreHeros() {
+    private func loadMoreHeros(tabla: AnyObject) {
+        UILoading()
         loadMoreHeroes = true
-        print("empieza a cargar mas heroees")
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
             self.viewModel.fetchHerosListData(total: self.heroesTotal) { [weak self] in
             self?.loadMoreHeroes = false
-            self?.tvHeros.reloadData()
-            self?.cvHeros.reloadData()
+            tabla.reloadData()
+            self?.dismiss(animated: false, completion:{ self?.loadMoreHeroes = true})
             }
         })
         heroesTotal += 10
@@ -84,6 +82,18 @@ class HerosListViewController: UIViewController {
             detailView.heroToLoad = heroToDetail!
         }
     }
+    
+    func UILoading() {
+        self.loadMoreHeroes = false
+        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.style = UIActivityIndicatorView.Style.medium
+        loadingIndicator.startAnimating();
+
+        alert.view.addSubview(loadingIndicator)
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 
@@ -94,7 +104,7 @@ extension HerosListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfRowsInSection(section: section)
+        return viewModel.numberOfRowsInCollection(section: section)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -110,6 +120,14 @@ extension HerosListViewController: UICollectionViewDelegate, UICollectionViewDat
         let selectedHero = viewModel.cellForRowAt(indexPath: indexPath)
         heroToDetail = selectedHero
         self.performSegue(withIdentifier: "DetailSegue", sender: self)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == viewModel.herosList.count - 1 {
+            if self.loadMoreHeroes{
+                loadMoreHeros(tabla: self.cvHeros)
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -132,15 +150,10 @@ extension HerosListViewController: UICollectionViewDelegate, UICollectionViewDat
         self.performSegue(withIdentifier: "DetailSegue", sender: self)
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        
-        if offsetY > contentHeight - scrollView.frame.height {
-            if !loadMoreHeroes{
-                
-                print("load more heroeees")
-                loadMoreHeros()
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == viewModel.herosList.count - 2 {
+            if loadMoreHeroes{
+                loadMoreHeros(tabla: self.tvHeros)
             }
         }
     }

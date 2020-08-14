@@ -15,11 +15,9 @@ class NetworkManager {
     private var dataTask: URLSessionDataTask?
     let userToken = "10156112965520834/"
     let baseURL = "https://superheroapi.com/api.php/"
-    private var heroArray = [Hero]()
     
     
     func getHeros(id: Int, completion: @escaping (Result<Hero, Error>) -> Void){
-        
         guard let url = URL(string: baseURL + userToken + String(id)) else {
             fatalError("URL guard FAILED")
         }
@@ -37,6 +35,7 @@ class NetworkManager {
         }
         dataTask?.resume()
     }
+    
     
     func getHeroByName(name: String, completion: @escaping (Result<HerosData, Error>) -> Void){
         let trimName = name.replacingOccurrences(of: " ", with: "%20")

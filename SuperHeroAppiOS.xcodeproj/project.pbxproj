@@ -120,9 +120,9 @@
 		FFD4E5D124E4E11700A194F4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				81196EF724E5DDDF005DE81E /* HerosViewModel.swift */,
 				FFD4E5AA24E4BA4500A194F4 /* Main.storyboard */,
 				FFD4E5B224E4BA4600A194F4 /* LaunchScreen.storyboard */,
-				81196EF724E5DDDF005DE81E /* HerosViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
