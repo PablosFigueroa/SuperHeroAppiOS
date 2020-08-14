@@ -9,7 +9,15 @@
 import Foundation
 
 struct HerosData: Codable {
-    var heros: [Hero]
+    var response: String
+    var results_for: String
+    var results: [Hero]?
+    
+    enum CodingKeys: String, CodingKey {
+    case response = "response"
+    case results_for = "results-for"
+    case results
+    }
 }
 
 struct Hero: Codable {

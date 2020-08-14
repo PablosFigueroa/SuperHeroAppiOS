@@ -11,23 +11,25 @@ import Foundation
 class HerosViewModel {
     
     private var apiService = NetworkManager()
-    private var herosList: [Hero] = []
-    var groupNumber = 1
+    var herosList: [Hero] = []
+    private let group = DispatchGroup()
     
-    
-    func fetchHerosListData(group: Int, completion: @escaping () -> ()) {
+    func fetchHerosListData(total: Int, completion: @escaping () -> ()) {
         
-        for i in stride(from: group, to: 11, by: 1){
-            
-            apiService.getHeros(id: i) { [weak self] (result) in
-            
-            switch result {
-            case .success(let hero):
-                self?.herosList.append(hero)
-                completion()
-            case .failure(let error):
-                // Something is wrong with the JSON file or the model
-                print("Error processing json data: \(error)")
+        for i in stride(from: (total - 10), to: total, by: 1){
+            self.group.enter()
+                self.apiService.getHeros(id: i) { [weak self] (result) in
+                switch result {
+                case .success(let hero):
+                    completion()
+                    self?.herosList.append(hero)
+                    self?.herosList.sort{
+                        $0.name < $1.name
+                    }
+                    self?.group.leave()
+                case .failure(let error):
+                    print("Error processing json data: \(error)")
+                    self?.group.leave()
                 }
             }
         }
@@ -41,6 +43,8 @@ class HerosViewModel {
     }
     
     func cellForRowAt (indexPath: IndexPath) -> Hero {
+        
         return herosList[indexPath.row]
     }
+    
 }

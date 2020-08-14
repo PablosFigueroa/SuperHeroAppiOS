@@ -26,22 +26,19 @@ class HerosTableViewCell: UITableViewCell {
             return
         }
         
-        // Before we download the image we clear out the old one
         self.imgHero.image = nil
-        
         getImageDataFrom(url: heroImageURL)
     }
     
     private func getImageDataFrom(url: URL) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
-            // Handle Error
+
             if let error = error {
                 print("DataTask error: \(error.localizedDescription)")
                 return
             }
             
             guard let data = data else {
-                // Handle Empty Data
                 print("Empty Data")
                 return
             }
