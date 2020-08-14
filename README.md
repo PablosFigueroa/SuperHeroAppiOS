@@ -1,5 +1,5 @@
 # SuperHeroAppiOS
-This repo is a code challenge for the job application at Coppel
+This repo is a code challenge for the job application at Coppel, using the superheroapi.com
 
 [![Swift Version][swift-image]][swift-url]
 [![Platform](https://img.shields.io/cocoapods/p/LFAlertController.svg?style=flat)](http://cocoapods.org/pods/LFAlertController)
