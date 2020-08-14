@@ -26,7 +26,7 @@ Due to the way of the API is constructed, and the many times the API method shou
 So this provokes some unexpected behavior, for example: when the CollectionView repopulates its data, the TableView can no longer call for more information, and viceversa.
 
 ## Info
-Pablo Figueroa Diaz –  figueroadpabloso@gmail.com
+Pablo Figueroa Diaz –  figueroadpablos@gmail.com
 
 [swift-image]:https://img.shields.io/badge/swift-5.0-orange.svg
 [swift-url]: https://swift.org/
